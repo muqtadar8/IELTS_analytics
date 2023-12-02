@@ -1,9 +1,9 @@
 import openai 
-
+from django.shortcuts import render
 from openai import OpenAI
 
-def main(inp):
-    api_key = "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"
+def feedback(inp):
+    api_key = "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"
     # client
     client = OpenAI(api_key=api_key)
     # Retrive Assistant
@@ -51,3 +51,10 @@ def main(inp):
 
 
     return mes
+
+def main(request):
+    result = None
+    if request.method == 'POST':
+        essay_input = request.POST['essay_input']
+        result = feedback(essay_input)
+    return render(request, 'index.html', {'result': result})

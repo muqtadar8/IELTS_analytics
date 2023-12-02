@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Essay Feedback</title>
+</head>
+<body>
+    <h1>Essay Feedback</h1>
+    <form method="post" action="{% url 'main' %}">
+        {% csrf_token %}
+        <label for="essay_input">Enter your essay:</label><br>
+        <textarea name="essay_input" rows="4" cols="50" required></textarea><br>
+        <input type="submit" value="Submit">
+    </form>
+    {% if result %}
+        <h2>Feedback:</h2>
+        <p>{{ result }}</p>
+    {% endif %}
+</body>
+</html>

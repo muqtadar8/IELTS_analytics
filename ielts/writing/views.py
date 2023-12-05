@@ -81,15 +81,37 @@ def feedback(inp):
     mes = thread_messages.data
     
     client.beta.threads.delete(th_id)
+    
+    return display_assessment(mes)
 
-    display_assessment(mes)
-
-    return mes
+def clean_text(raw_text):
+    # Check if the raw text is a string, if not, return an empty string
+    if isinstance(raw_text, str):
+        # Extract relevant part of the text
+        cleaned_text = raw_text.split(':', 1)[-1].strip()
+        return cleaned_text
+    else:
+        return ''
 
 def main(request):
     result = None
+    cleaned_result = []  # Move this line outside the if block
     if request.method == 'POST':
         essay_input = request.POST['essay_input']
         result = feedback(essay_input)
-    return render(request, 'index.html', {'result': result})
 
+        print("Result from feedback function:", result)  # Add this line
+
+        # Clean the text in the result
+        if result:
+            for message in result:
+                cleaned_message = {}
+                cleaned_message['role'] = message.role
+                cleaned_message['content'] = [
+                    text_content.text
+                    for text_content in message.content
+                ]
+                cleaned_result.append(cleaned_message)
+
+    print("Cleaned Result:", cleaned_result)  # Add this line
+    return render(request, 'index.html', {'result': cleaned_result})

@@ -99,8 +99,15 @@
         <p>Analysing...</p>
     </div>
     {% if result %}
-        <h2>Analysis:</h2>
-        <p>{{ result }}</p>
-    {% endif %}
+    <h2>Analysis:</h2>
+    {% for message in result %}
+        <p>{{ message.role }}:</p>
+        {% for text_content in message.content %}
+            <p>{{ text_content }}</p>
+        {% endfor %}
+        <hr>
+    {% endfor %}
+{% endif %}
+
 </body>
 </html>

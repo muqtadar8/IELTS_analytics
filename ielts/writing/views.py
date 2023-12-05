@@ -6,6 +6,35 @@ from django.conf import settings
 api_key = settings.OPENAI_API_KEY
 
 
+
+class ThreadMessage:
+    def __init__(self, id, assistant_id, content, created_at, file_ids, metadata, object, role, run_id, thread_id):
+        self.id = id
+        self.assistant_id = assistant_id
+        self.content = content
+        self.created_at = created_at
+        self.file_ids = file_ids
+        self.metadata = metadata
+        self.object = object
+        self.role = role
+        self.run_id = run_id
+        self.thread_id = thread_id
+
+class MessageContentText:
+    def __init__(self, text):
+        self.text = text
+
+def display_assessment(assessment):
+    for message in assessment:
+        if message.role == 'assistant':
+            print("Assistant's Feedback:")
+            print(message.content[0].text.value)
+        elif message.role == 'user':
+            print("User's Essay:")
+            print(message.content[0].text.value)
+        print('\n' + '-'*50 + '\n')
+
+
 def feedback(inp):
     # client
     client = OpenAI(api_key=api_key)
@@ -50,8 +79,10 @@ def feedback(inp):
 
     thread_messages = client.beta.threads.messages.list(th_id)
     mes = thread_messages.data
+    
     client.beta.threads.delete(th_id)
 
+    display_assessment(mes)
 
     return mes
 

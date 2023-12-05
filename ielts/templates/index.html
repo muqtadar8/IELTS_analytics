@@ -4,17 +4,102 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Essay Feedback</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #121212; /* Dark background color */
+            color: #fff; /* Light text color */
+        }
+
+        h1 {
+            color: #61dafb; /* React blue color */
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+            color: #61dafb; /* React blue color */
+        }
+
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            resize: vertical;
+            background-color: #333; /* Dark textarea background color */
+            color: #fff; /* Light textarea text color */
+        }
+
+        input[type="submit"] {
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        .loading-container {
+            display: none;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .loading {
+            border: 8px solid #f3f3f3;
+            border-top: 8px solid #3498db;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        h2 {
+            margin-top: 20px;
+            color: #61dafb; /* React blue color */
+        }
+
+        p {
+            color: #aaa; /* Light text color for content */
+        }
+    </style>
+    <script>
+        function showLoading() {
+            document.getElementById('loading-container').style.display = 'block';
+        }
+    </script>
 </head>
 <body>
     <h1>Essay Feedback</h1>
-    <form method="post" action="{% url 'main' %}">
+    <form method="post" action="{% url 'main' %}" onsubmit="showLoading()">
         {% csrf_token %}
         <label for="essay_input">Enter your essay:</label><br>
         <textarea name="essay_input" rows="4" cols="50" required></textarea><br>
         <input type="submit" value="Submit">
     </form>
+    <div id="loading-container" class="loading-container">
+        <div class="loading"></div>
+        <p>Analysing...</p>
+    </div>
     {% if result %}
-        <h2>Feedback:</h2>
+        <h2>Analysis:</h2>
         <p>{{ result }}</p>
     {% endif %}
 </body>

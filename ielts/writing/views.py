@@ -25,14 +25,17 @@ class MessageContentText:
         self.text = text
 
 def display_assessment(assessment):
+    complete_text = ""
+
     for message in assessment:
         if message.role == 'assistant':
-            print("Assistant's Feedback:")
-            print(message.content[0].text.value)
+            complete_text += "Assistant's Feedback:\n"
+            complete_text += message.content[0].text.value + '\n'
         elif message.role == 'user':
-            print("User's Essay:")
-            print(message.content[0].text.value)
-        print('\n' + '-'*50 + '\n')
+            complete_text += "User's Essay:\n"
+            complete_text += message.content[0].text.value + '\n' + '-'*50 + '\n'
+
+    return complete_text
 
 
 def feedback(inp):
@@ -79,10 +82,12 @@ def feedback(inp):
 
     thread_messages = client.beta.threads.messages.list(th_id)
     mes = thread_messages.data
+    print(type(mes))
     
     client.beta.threads.delete(th_id)
     
-    return display_assessment(mes)
+    # return display_assessment(mes)
+    return mes
 
 def clean_text(raw_text):
     # Check if the raw text is a string, if not, return an empty string
@@ -100,18 +105,18 @@ def main(request):
         essay_input = request.POST['essay_input']
         result = feedback(essay_input)
 
-        print("Result from feedback function:", result)  # Add this line
+        # print("Result from feedback function:", result)  # Add this line
 
-        # Clean the text in the result
-        if result:
-            for message in result:
-                cleaned_message = {}
-                cleaned_message['role'] = message.role
-                cleaned_message['content'] = [
-                    text_content.text
-                    for text_content in message.content
-                ]
-                cleaned_result.append(cleaned_message)
+        # # Clean the text in the result
+        # if result:
+        #     for message in result:
+        #         cleaned_message = {}
+        #         cleaned_message['role'] = message.role
+        #         cleaned_message['content'] = [
+        #             text_content.text
+        #             for text_content in message.content
+        #         ]
+        #         cleaned_result.append(cleaned_message)
 
-    print("Cleaned Result:", cleaned_result)  # Add this line
-    return render(request, 'index.html', {'result': cleaned_result})
+    # print("Cleaned Result:", cleaned_result)  # Add this line
+    return render(request, 'index.html', {'result': result})

@@ -12,22 +12,18 @@
             background-color: #121212; /* Dark background color */
             color: #fff; /* Light text color */
         }
-
         h1 {
-            color: #61dafb; /* React blue color */
+            color: #61DAFB; /* React blue color */
         }
-
         form {
             margin-top: 20px;
         }
-
         label {
             font-weight: bold;
             display: block;
             margin-bottom: 5px;
-            color: #61dafb; /* React blue color */
+            color: #61DAFB; /* React blue color */
         }
-
         textarea {
             width: 100%;
             padding: 10px;
@@ -37,47 +33,53 @@
             background-color: #333; /* Dark textarea background color */
             color: #fff; /* Light textarea text color */
         }
-
         input[type="submit"] {
             padding: 10px;
-            background-color: #007bff;
+            background-color: #007BFF;
             color: #fff;
             border: none;
             cursor: pointer;
         }
-
         input[type="submit"]:hover {
-            background-color: #0056b3;
+            background-color: #0056B3;
         }
-
         .loading-container {
             display: none;
             margin-top: 10px;
             text-align: center;
         }
-
         .loading {
-            border: 8px solid #f3f3f3;
-            border-top: 8px solid #3498db;
+            border: 8px solid #F3F3F3;
+            border-top: 8px solid #3498DB;
             border-radius: 50%;
             width: 40px;
             height: 40px;
             animation: spin 1s linear infinite;
             margin: auto;
         }
-
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-
         h2 {
             margin-top: 20px;
-            color: #61dafb; /* React blue color */
+            color: #61DAFB; /* React blue color */
         }
-
         p {
             color: #aaa; /* Light text color for content */
+        }
+        .feedback-section {
+            background-color: #343A40;  /* Darker background color */
+            padding: 20px;
+            border-radius: 5px;
+            font-family: Arial, sans-serif;
+            margin-top: 20px;  /* Add space above the feedback section */
+        }
+        .feedback-section h2 {
+            color: #6C757D;
+        }
+        .feedback-section p {
+            color: #F8F9FA;  /* Lighter text color for contrast against the dark background */
         }
     </style>
     <script>
@@ -99,15 +101,15 @@
         <p>Analysing...</p>
     </div>
     {% if result %}
-    <h2>Analysis:</h2>
-    {% for message in result %}
-        <p>{{ message.role }}:</p>
-        {% for text_content in message.content %}
-            <p>{{ text_content }}</p>
+    <div class="feedback-section">
+        <h2>Analysis:</h2>
+        {% for message in result %}
+            <p>{{ message.role }}:</p>
+            {% for text_content in message.content %}
+                <p>{{ text_content|safe }}</p>
+            {% endfor %}
+            <hr>
         {% endfor %}
-        <hr>
-    {% endfor %}
+    </div>
 {% endif %}
-
 </body>
-</html>

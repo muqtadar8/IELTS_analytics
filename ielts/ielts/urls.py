@@ -18,8 +18,12 @@ from django.contrib import admin
 from django.urls import path , include
 
 urlpatterns = [
+    
     path('admin/', admin.site.urls),
-    path('',include('writing.urls')),
+    path('writing/',include('writing.urls')),
     path('read/',include('reading.urls')),
     path('listen/',include('listening.urls')),
+    path('', include('accounts.urls')),
+    path('speaking/',include('speaking.urls'))
+    
 ]

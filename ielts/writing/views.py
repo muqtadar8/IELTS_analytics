@@ -1,7 +1,11 @@
-import openai
 from django.shortcuts import render
 from openai import OpenAI
 from django.conf import settings
+from django.contrib.auth.decorators import login_required
+
+
+
+
 api_key = settings.OPENAI_API_KEY
 class ThreadMessage:
     def __init__(self, id, assistant_id, content, created_at, file_ids, metadata, object, role, run_id, thread_id):
@@ -74,9 +78,10 @@ def feedback(inp):
     mes = thread_messages.data
     client.beta.threads.delete(th_id)
     return display_assessment(mes)
+@login_required
 def main(request):
     result = None
     if request.method == 'POST':
         essay_input = request.POST['essay_input']
         result = feedback(essay_input)
-    return render(request, 'index.html', {'result': result})
+    return render(request, 'write.html', {'result': result})

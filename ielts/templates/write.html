@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,77 +10,108 @@
             font-family: Arial, sans-serif;
             margin: 20px;
             padding: 20px;
-            background-color: #121212; /* Dark background color */
-            color: #fff; /* Light text color */
+            background-color: #f4f4f4; /* Light background color */
+            color: #333; /* Dark text color */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add shadow to the body */
+            border-radius: 10px; /* Round the corners of the body */
         }
+
         h1 {
-            color: #61DAFB; /* React blue color */
+            color: #000000;
         }
+
         form {
             margin-top: 20px;
         }
+
         label {
             font-weight: bold;
             display: block;
             margin-bottom: 5px;
-            color: #61DAFB; /* React blue color */
+            color: #000000; 
         }
+
         textarea {
             width: 100%;
             padding: 10px;
             margin-bottom: 10px;
             box-sizing: border-box;
             resize: vertical;
-            background-color: #333; /* Dark textarea background color */
-            color: #fff; /* Light textarea text color */
+            background-color: #fff; /* Light textarea background color */
+            color: #333; /* Dark textarea text color */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add shadow to the textarea */
+            border-radius: 8px; /* Round the corners of the textarea */
+            font-family: Arial, sans-serif; /* Set the font to Arial */
         }
+
         input[type="submit"] {
             padding: 10px;
-            background-color: #007BFF;
+            background-color: #ff0000;
             color: #fff;
             border: none;
             cursor: pointer;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add shadow to the submit button */
+            border-radius: 8px; /* Round the corners of the submit button */
+            font-family: Arial, sans-serif; /* Set the font to Arial */
         }
+
         input[type="submit"]:hover {
-            background-color: #0056B3;
+            background-color: #b30000;
         }
+
         .loading-container {
             display: none;
             margin-top: 10px;
             text-align: center;
         }
+
         .loading {
             border: 8px solid #F3F3F3;
-            border-top: 8px solid #3498DB;
+            border-top: 8px solid #ff0000;
             border-radius: 50%;
             width: 40px;
             height: 40px;
             animation: spin 1s linear infinite;
             margin: auto;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+            background-color: transparent;
+            border-bottom: 8px solid transparent;
         }
+
         @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
         }
+
         h2 {
             margin-top: 20px;
-            color: #61DAFB; /* React blue color */
+            color: #007BFF; /* Blue color */
         }
+
         p {
-            color: #aaa; /* Light text color for content */
+            color: #555; /* Dark text color for content */
         }
+
         .feedback-section {
-            background-color: #343A40;  /* Darker background color */
+            background-color: #fff; /* Lighter background color */
             padding: 20px;
-            border-radius: 5px;
+            border-radius: 10px; /* Round the corners of the feedback section */
             font-family: Arial, sans-serif;
-            margin-top: 20px;  /* Add space above the feedback section */
+            margin-top: 20px; /* Add space above the feedback section */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add shadow to the feedback section */
         }
+
         .feedback-section h2 {
-            color: #6C757D;
+            color: #333;
         }
+
         .feedback-section p {
-            color: #F8F9FA;  /* Lighter text color for contrast against the dark background */
+            color: #666; /* Darker text color for contrast against the light background */
         }
     </style>
     <script>
@@ -88,7 +120,15 @@
         }
     </script>
 </head>
+
 <body>
+    <!-- Home button -->
+    <a href="{% url 'home' %}" style="text-decoration: none; display: block; text-align: left; margin-top: 10px; margin-left: 5px;">
+        <button style="padding: 10px; background-color: #ff0000; color: #fff; border: none; cursor: pointer;
+                        border-radius: 8px; font-family: Arial, sans-serif;">
+            Home
+        </button>
+    </a>
     <h1>Essay Feedback</h1>
     <form method="post" action="{% url 'main' %}" onsubmit="showLoading()">
         {% csrf_token %}
@@ -104,12 +144,14 @@
     <div class="feedback-section">
         <h2>Analysis:</h2>
         {% for message in result %}
-            <p>{{ message.role }}:</p>
-            {% for text_content in message.content %}
-                <p>{{ text_content|safe }}</p>
-            {% endfor %}
-            <hr>
+        <p>{{ message.role }}:</p>
+        {% for text_content in message.content %}
+        <p>{{ text_content|safe }}</p>
+        {% endfor %}
+        <hr>
         {% endfor %}
     </div>
-{% endif %}
+    {% endif %}
 </body>
+
+</html>

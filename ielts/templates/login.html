@@ -1,133 +1,170 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login</title>
-  <style>
-    body {
-      font-family: 'Arial', sans-serif;
-      background: linear-gradient(to right, #ff0000, #ffffff); /* Red to white gradient */
-      color: #333; /* Dark text color */
-      margin: 0;
-      padding: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      position: relative; /* Added for positioning the text */
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #ff0000, #ffffff);
+            /* Red to white gradient */
+            color: #333;
+            /* Dark text color */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            position: relative;
+            /* Added for positioning the text */
+        }
 
-    .background-text {
-      position: absolute;
-      top: 75px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 4em;
-      font-weight: bold;
-      color: #fff; /* White text color */
-      text-align: center;
-    }
+        .background-text {
+            position: absolute;
+            top: 75px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 4em;
+            font-weight: bold;
+            color: #fff;
+            /* White text color */
+            text-align: center;
+        }
 
-    .login-container {
-      width: 400px;
-      padding: 30px;
-      border-radius: 8px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
-    }
+        .content-wrapper {
+            display: flex;
+            align-items: center;
+        }
 
-    .login-heading {
-      text-align: center;
-      font-size: 2em;
-      font-weight: bold;
-      color: #333; /* Dark text color */
-      margin-bottom: 20px;
-    }
+        .login-container {
+            width: 400px;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: rgba(255, 255, 255, 0.9);
+            /* Semi-transparent white background */
+        }
 
-    .login-form {
-      margin: 20px 0;
-    }
+        .login-heading {
+            text-align: center;
+            font-size: 2em;
+            font-weight: bold;
+            color: #333;
+            /* Dark text color */
+            margin-bottom: 20px;
+        }
 
-    .form-group {
-      margin-bottom: 20px;
-    }
+        .login-form {
+            margin: 20px 0;
+        }
 
-    label {
-      display: block;
-      margin-bottom: 5px;
-      color: #555; /* Slightly darker text color */
-    }
+        .form-group {
+            margin-bottom: 20px;
+        }
 
-    input[type="text"],
-    input[type="password"] {
-      width: 100%;
-      padding: 10px;
-      border: 1px solid #ddd; /* Light gray border */
-      border-radius: 4px;
-      font-size: 16px;
-      box-sizing: border-box;
-    }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+            /* Slightly darker text color */
+        }
 
-    .btn {
-      display: block;
-      width: 100%;
-      padding: 10px;
-      border: none;
-      border-radius: 4px;
-      background-color: #007bff; /* Blue button color */
-      color: #fff; /* White text color */
-      font-size: 16px;
-      cursor: pointer;
-    }
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            /* Light gray border */
+            border-radius: 4px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
 
-    .btn:hover {
-      background-color: #0056b3; /* Darker blue on hover */
-    }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            background-color: #ff0000;
+            /* Blue button color */
+            color: #fff;
+            /* White text color */
+            font-size: 16px;
+            cursor: pointer;
+        }
 
-    .error-message {
-      color: #dc3545; /* Red text color */
-      font-weight: bold;
-      margin-bottom: 20px;
-    }
+        .btn:hover {
+            background-color: #b30000;
+            /* Darker blue on hover */
+        }
 
-    .register-link {
-      text-align: center;
-      margin-top: 20px;
-      color: #555; /* Slightly darker text color */
-    }
+        .error-message {
+            color: #dc3545;
+            /* Red text color */
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
 
-    .register-link a {
-      color: #007bff; /* Blue link color */
-      text-decoration: none;
-      font-weight: bold;
-    }
+        .register-link {
+            text-align: center;
+            margin-top: 20px;
+            color: #555;
+            /* Slightly darker text color */
+        }
 
-    .register-link a:hover {
-      text-decoration: underline;
-    }
-  </style>
+        .register-link a {
+            color: #ff0000;
+            /* Blue link color */
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .register-link a:hover {
+            text-decoration: underline;
+        }
+
+        /* Add styles for the image */
+        .custom-image {
+            width: 100%; /* Set width to 100% to match login-container */
+            max-width: 400px; /* Set max-width to ensure the image does not exceed login-container */
+            height: auto; /* Maintain aspect ratio */
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-right: 30px; /* Adjust margin as needed */
+        }
+    </style>
 </head>
+
 <body>
-  <main class="login-container">
-    <div class="background-text">IELTS</div>
-    <h2 class="login-heading">Login</h2>
-    <form method="post" class="login-form">
-      {% csrf_token %}
-      <div class="form-group">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required>
-      </div>
-      <div class="form-group">
-        <label for="pwd">Password:</label>
-        <input type="password" id="pwd" name="password" required>
-      </div>
-      {% if error %}
-        <p class="error-message">{{ error }}</p>
-      {% endif %}
-      <button type="submit" class="btn btn-primary">Login</button>
-    </form>
-    <p class="register-link">Don't have an account? <a href="{% url 'register' %}">Register</a></p>
-  </main>
+    <div class="content-wrapper">
+        <img src="{% static 'images/Homepage.jpg' %}" alt="Custom Image" class="custom-image">
+        <div class="login-container">
+            <div class="background-text">IELTS</div>
+            <h2 class="login-heading">Login</h2>
+            <form method="post" class="login-form">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="pwd">Password:</label>
+                    <input type="password" id="pwd" name="password" required>
+                </div>
+                {% if error %}
+                <p class="error-message">{{ error }}</p>
+                {% endif %}
+                <button type="submit" class="btn btn-primary">Login</button>
+            </form>
+            <p class="register-link">Don't have an account? <a href="{% url 'register' %}">Register</a></p>
+        </div>
+    </div>
 </body>
+
 </html>

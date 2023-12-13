@@ -78,7 +78,6 @@ def feedback(inp):
     mes = thread_messages.data
     client.beta.threads.delete(th_id)
     return display_assessment(mes)
-@login_required
 def main(request):
     result = None
     if request.method == 'POST':

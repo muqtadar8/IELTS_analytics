@@ -1,48 +1,41 @@
-# views.py
-from django.shortcuts import render
-from django.http import HttpResponse
+# Create your views here.
 import requests
-from tempfile import NamedTemporaryFile
-import base64
-import os
+from django.shortcuts import render
 
-API_URL = "https://api-inference.huggingface.co/models/muqtadar/speech_emotion"
-HEADERS = {"Authorization": "Bearer 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"}
+
+def query_audio(filename):
+    API_URL = "https://api-inference.huggingface.co/models/muqtadar/voice_emo"
+    headers = {"Authorization": "Bearer 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"}
+    with open(filename, "rb") as f:
+        data = f.read()
+        response = requests.post(API_URL, headers=headers, data=data)
+    return response.json()
+
+
+
+def query_audio1(filename):
+    API_URL1 = "https://api-inference.huggingface.co/models/muqtadar/speech_emotion"
+    headers1 = {"Authorization": "Bearer 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"}
+    with open(filename, "rb") as f:
+        data = f.read()
+        response = requests.post(API_URL1, headers=headers1, data=data)
+    return response.json()
 
 def speak(request):
-    if request.method == 'POST':
-        if 'audio' in request.FILES:
-            # Upload case
-            audio_data = request.FILES['audio'].read()
-        else:
-            # Recording case
-            audio_data = base64.b64decode(request.POST['audio_data'])
+    if request.method == "POST" and request.FILES['audio']:
+        uploaded_audio = request.FILES['audio']
 
-        # Create temporary file to hold audio data
-        with NamedTemporaryFile(suffix='.wav', delete=False) as f:
-            f.write(audio_data)
-            audio_filename = f.name
+        # Save the uploaded audio to a temporary file
+        with open("static/temp_audio.mp3", "wb") as f:
+            for chunk in uploaded_audio.chunks():
+                f.write(chunk)
 
-        try:
-            # Send audio data to Hugging Face API
-            response = requests.post(API_URL, headers=HEADERS, files={'audio': open(audio_filename, 'rb')})
-            response.raise_for_status()
-            api_response = response.json()
+        # Perform audio analysis using your functions
+        speech_emotion_result = query_audio1("static/temp_audio.mp3")
+        voice_emotion_result = query_audio("static/temp_audio.mp3")
 
-            # Prepare data for response
-            results = {
-                'audio_data': audio_data,
-                'api_response': api_response,
-            }
+        results = [speech_emotion_result, voice_emotion_result]
 
-            return render(request, 'results.html', context=results)
-
-        except requests.RequestException as e:
-            # Handle API request errors
-            return HttpResponse(f"Error in API request: {str(e)}", status=500)
-
-        finally:
-            # Remove temporary file
-            os.remove(audio_filename)
+        return render(request, 'results.html', {'results': results, 'audio': uploaded_audio})
 
     return render(request, 'speak.html')

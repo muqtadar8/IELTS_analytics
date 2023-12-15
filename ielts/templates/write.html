@@ -142,7 +142,6 @@
     </div>
     {% if result %}
     <div class="feedback-section">
-        <h2>Analysis:</h2>
         {% for message in result %}
         <p>{{ message.role }}:</p>
         {% for text_content in message.content %}

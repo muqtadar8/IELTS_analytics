@@ -1,13 +1,68 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Results</title>
+    <title>Audio Analysis Result</title>
+    <!-- Include Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            max-width: 500px;
+            margin-top: 50px;
+        }
+        .card {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .card-header {
+            background-color: #ff0000;
+            color: #fff;
+            text-align: center;
+            font-size: 24px;
+            padding: 15px 0;
+        }
+        .card-body {
+            padding: 20px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Audio Results</h1>
-    <p>Audio file: {{ audio_record.audio_file.url }}</p>
-    <p>API response:</p>
-    <pre>{{ api_response }}</pre>
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                Audio Analysis Result
+            </div>
+            <div class="card-body">
+                <h5>Speech Emotion Result:</h5>
+                <ul>
+                    {% for result in results.0 %}
+                        <li>{{ result.label }}: {{ result.score }}</li>
+                    {% endfor %}
+                </ul>
+
+                <h5>Voice Emotion Result:</h5>
+                <ul>
+                    {% for result in results.1 %}
+                        <li>{{ result.label }}: {{ result.score }}</li>
+                    {% endfor %}
+                </ul>
+
+                {% if audio %}
+                    <h5>Uploaded Audio:</h5>
+                    <audio controls>
+                        <source src="{{ audio.url }}" type="audio/mp3">
+                        Your browser does not support the audio element.
+                    </audio>
+                {% endif %}
+                
+                <a href="{% url 'home' %}" class="btn btn-primary mt-3">Back to Home</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Include Bootstrap JS and any other scripts (Optional) -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

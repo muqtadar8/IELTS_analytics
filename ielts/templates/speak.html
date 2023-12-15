@@ -1,64 +1,95 @@
+{% load static %}
+
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    
-    <a href="{% url 'home' %}" style="text-decoration: none; display: block; text-align: left; margin-top: 10px; margin-left: 5px;">
-        <button style="padding: 10px; background-color: #ff0000; color: #fff; border: none; cursor: pointer;
-                        border-radius: 8px; font-family: Arial, sans-serif;">
-            Home
-        </button>
-    </a>
-
-    <title>Record Audio</title>
-</head>
-<body>
-    <h1>Record Audio</h1>
-    <br>
-    <form id="record-form" method="post" enctype="multipart/form-data">
-        <label for="audio_file">Upload audio file:</label>
-        <input type="file" name="audio" id="audio_file" accept="audio/*">
-        <br><br>
-        <label for="audio_data">Record audio directly:</label>
-        <button id="record-btn">Start Recording</button>
-        <button id="stop-btn" disabled>Stop Recording</button>
-        <br><br>
-        <input type="hidden" name="audio_data" id="audio_data">
-        <button type="button" onclick="submitAudio()">Submit</button>
-    </form>
-
-    <script src="https://cdn.rawgit.com/mattdiamond/Recorderjs/08e7abd9/dist/recorder.js"></script>
-    <script>
-        const recorder = new Recorder(navigator.mediaDevices.getUserMedia({ audio: true }));
-        const recordBtn = document.getElementById('record-btn');
-        const stopBtn = document.getElementById('stop-btn');
-        const audioDataInput = document.getElementById('audio_data');
-
-        function submitAudio() {
-            if (audioDataInput.value || document.getElementById('audio_file').files.length > 0) {
-                // Submit form with audio data
-                document.getElementById('record-form').submit();
-            } else {
-                alert("Please upload an audio file or record your audio first.");
-            }
+    <title>Audio Analysis</title>
+    <!-- Include Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            max-width: 500px;
+            margin-top: 50px;
+        }
+        .card {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .card-header {
+            background-color: #ff0000;
+            color: #fff;
+            text-align: center;
+            font-size: 24px;
+            padding: 15px 0;
+        }
+        .card-body {
+            padding: 20px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            font-weight: 500;
+        }
+        .btn-primary {
+            background-color: #ff0000;
+            border: none;
+        }
+        .btn-primary:hover {
+            background-color: #740101f7;
         }
 
-        recordBtn.addEventListener('click', async () => {
-            await recorder.start();
-            recordBtn.disabled = true;
-            stopBtn.disabled = false;
-        });
+        /* Loading animation styles */
+        .loading {
+            display: none;
+        }
 
-        stopBtn.addEventListener('click', async () => {
-            await recorder.stop();
-            const blob = await recorder.exportWAV();
-            const audioData = await blob.arrayBuffer();
-
-            audioDataInput.value = btoa(String.fromCharCode.apply(null, new Uint8Array(audioData)));
-
-            recordBtn.disabled = false;
-            stopBtn.disabled = true;
+        .loading img {
+            width: 50px;
+            height: 50px;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("form").submit(function () {
+                // Show loading animation when the form is submitted
+                $(".loading").show();
+            });
         });
     </script>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                Audio Analysis
+            </div>
+            <div class="card-body">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="audio">Upload an Audio File:</label>
+                        <input type="file" class="form-control" name="audio" accept="audio/*" required>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary">Analyze Audio</button>
+                    </div>
+                </form>
+
+                <!-- Loading animation -->
+                <div class="loading text-center">
+                    <p>Loading...</p>
+                    <!-- <img src="{% static 'loading.gif' %}" alt="Loading Animation"> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Include Bootstrap JS and any other scripts (Optional) -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

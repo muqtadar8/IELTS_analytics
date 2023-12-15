@@ -17,9 +17,29 @@
           transition: transform 0.2s ease-in-out;
           box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
       }
+
+      .btn {
+          display: inline-block;
+          padding: 0.5rem 1rem;
+          font-size: 1rem;
+          font-weight: bold;
+          text-align: center;
+          text-decoration: none;
+          cursor: pointer;
+          transition: background-color 0.3s;
+          border-radius: 20px;
+      }
+
+      .btn-red {
+          background-color: #ff0000; /* Red background color */
+          color: #fff; /* White text color */
+      }
+
+      .btn-red:hover {
+          background-color: #cc0000; /* Darker red on hover */
+      }
   </style>
 </head>
-
 
 <body class="bg-gray-100 text-gray-800">
   <div class="container mx-auto px-4 py-10">
@@ -29,8 +49,8 @@
         <div class="card bg-white rounded-lg shadow-md p-4 relative">
           <img src="https://media.istockphoto.com/id/1410731649/photo/a-female-college-student-writing-her-homework-on-a-school-notebook-close-up-and-focus-hand.webp?b=1&s=170667a&w=0&k=20&c=wJNIA31R0wfDg1mJJp8TPjihLM72CR6NHKDCGA7E85g=" alt="Writing" class="w-full h-40 object-cover rounded-t-lg">
           <h3 class="text-xl font-bold mb-2 mt-4">Writing</h3>
-          <p class="text-gray-600 leading-loose">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-          <a href="{% url 'main' %}" class="text-blue-500 hover:underline">Read More</a>
+          <p class="text-gray-600 leading-loose">Click on the button below to get AI assisted feedback on your essay.</p>
+          <a href="{% url 'main' %}" class="btn btn-red">Click Here</a>
         </div>
       </div>
 
@@ -38,8 +58,8 @@
         <div class="card bg-white rounded-lg shadow-md p-4 relative">
           <img src="https://www.englandlogistics.com/wp-content/uploads/2018/07/levels-of-listening.jpg" alt="Listening" class="w-full h-40 object-cover rounded-t-lg">
           <h3 class="text-xl font-bold mb-2 mt-4">Listening</h3>
-          <p class="text-gray-600 leading-loose">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-          <a href="{% url 'listen' %}" class="text-blue-500 hover:underline">Read More</a>
+          <p class="text-gray-600 leading-loose">Click on the button below to start a listening test.</p>
+          <a href="{% url 'listen' %}" class="btn btn-red">Click Here</a>
         </div>
       </div>
 
@@ -47,8 +67,8 @@
         <div class="card bg-white rounded-lg shadow-md p-4 relative">
           <img src="https://th.bing.com/th/id/OIG.pHvQZ081RjYfDUzcz__c?pid=ImgGn" alt="Speaking" class="w-full h-40 object-cover rounded-t-lg">
           <h3 class="text-xl font-bold mb-2 mt-4">Speaking</h3>
-          <p class="text-gray-600 leading-loose">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-          <a href="{% url 'speak' %}" class="text-blue-500 hover:underline">Read More</a>
+          <p class="text-gray-600 leading-loose">Click on the button below to get your speaking skills analysed by AI.</p>
+          <a href="{% url 'speak' %}" class="btn btn-red">Click Here</a>
         </div>
     </div>
 
@@ -56,8 +76,8 @@
       <div class="card bg-white rounded-lg shadow-md p-4 relative">
       <img src="https://static.toiimg.com/thumb/msid-87820283,width-1280,resizemode-4/87820283.jpg" alt="Reading" class="w-full h-40 object-cover rounded-t-lg">
       <h3 class="text-xl font-bold mb-2 mt-4">Reading</h3>
-      <p class="text-gray-600 leading-loose">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-      <a href="{% url 'read' %}" class="text-blue-500 hover:underline">Read More</a>
+      <p class="text-gray-600 leading-loose">Click on the button below to start a reading test.</p>
+      <a href="{% url 'read' %}" class="btn btn-red">Click Here</a>
         </div>
       </div>
     </div>

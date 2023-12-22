@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'reading',
     'accounts',
     'speaking',
+    'visuals',
 ]
 
 MIDDLEWARE = [

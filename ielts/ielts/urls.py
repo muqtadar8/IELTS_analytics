@@ -24,6 +24,6 @@ urlpatterns = [
     path('read/',include('reading.urls')),
     path('listen/',include('listening.urls')),
     path('', include('accounts.urls')),
-    path('speaking/',include('speaking.urls'))
-    
+    path('speaking/',include('speaking.urls')),
+    path('', include('visuals.urls')),
 ]
